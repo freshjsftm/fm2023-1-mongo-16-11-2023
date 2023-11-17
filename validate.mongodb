@@ -1,0 +1,60 @@
+use('fm_mongo');
+
+db.users.drop();
+db.createCollection('users', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['name', 'email', 'isMale', 'height', 'address'],
+      properties: {
+        address: {
+          bsonType: 'object',
+          required: ['town', 'street'],
+          properties: {
+            town: {
+              enum: ['Zp', 'Dnipro'],
+              description: 'must be one of Zp, Dnipro',
+            },
+            street: {
+              bsonType: 'string',
+              description: 'must be string',
+            },
+          },
+        },
+        name: {
+          bsonType: 'string',
+          description: 'must be string',
+          pattern: '^[A-Z][a-z]{2,15}$',
+        },
+        email: {
+          bsonType: 'string',
+          description: 'must be email',
+        },
+        isMale: {
+          bsonType: 'bool',
+          description: 'must be boolean',
+        },
+        height: {
+          bsonType: 'double',
+          description: 'must be from 1.45 to 2.5',
+          minimum: 1.45,
+          maximum: 2.5,
+        },
+      },
+    },
+  },
+});
+
+// db.users.insertOne({
+//   name: 'Qwety',
+//   email: 'brad@gmail.com',
+//   isMale: true,
+//   height: 1.87,
+//   weight: 89,
+//   birthday: '1963-12-18',
+//   address:{
+//     town: 'Zp',
+//     street: 'Qwerty'
+//   }
+// });
+// db.users.find();
