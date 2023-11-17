@@ -14,7 +14,7 @@ use('fm_mongo');
 //db.inventory.find({ "size.h": { $gt: 13 } });
 //дістати речі у яких статус А і ширина менше 15
 // db.inventory.find({ status: 'A', 'size.w': { $lt: 13 } });
-//db.inventory.find({ $nor: [{ status: 'A' }, { 'size.w': { $lt: 13 } }] });
+//db.inventory.find({ $or: [{ status: 'A' }, { 'size.w': { $lt: 13 } }] });
 //db.inventory.find({ 'size.uom': { $not: { $eq: 'cm' } } });
 
 //db.inventory.find({ qty: { $exists: false } });
