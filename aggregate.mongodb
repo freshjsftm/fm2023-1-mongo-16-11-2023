@@ -1,0 +1,135 @@
+use('fm_mongo');
+
+// db.createCollection('manufactures', {
+//   validator: {
+//     $jsonSchema: {
+//       bsonType: 'object',
+//       required: ['name'],
+//       properties: {
+//         name: {
+//           bsonType: 'string',
+//         },
+//       },
+//     },
+//   },
+// });
+// db.manufactures.insertMany([{name:'M1'}, {name:'M2'}, {name:'M3'}]);
+//db.products.drop();
+// db.createCollection('products', {
+//   validator: {
+//     $jsonSchema: {
+//       bsonType: 'object',
+//       required: ['title', 'price', 'amount', 'manId'],
+//       properties: {
+//         title: {
+//           bsonType: 'string',
+//         },
+//         price: {
+//           bsonType: 'double',
+//         },
+//         amount: {
+//           bsonType: 'int',
+//         },
+//         manId: {
+//           bsonType: 'objectId'
+//         },
+//       },
+//     },
+//   },
+// });
+//655c613031a0b25e55c45545
+//655c613031a0b25e55c45546
+//655c613031a0b25e55c45547
+// db.products.insertMany([
+//   {title:'coffee', price:112.3, amount:54, manId: new ObjectId('655c613031a0b25e55c45545')},
+//   {title:'milk', price:32.4, amount:145, manId: new ObjectId('655c613031a0b25e55c45545')},
+//   {title:'egg', price:4.5, amount:5400, manId: new ObjectId('655c613031a0b25e55c45546')},
+//   {title:'juice', price:26.3, amount:74, manId: new ObjectId('655c613031a0b25e55c45545')},
+//   {title:'bear', price:42.8, amount:540, manId: new ObjectId('655c613031a0b25e55c45545')},
+//   {title:'honney', price:212.3, amount:4, manId: new ObjectId('655c613031a0b25e55c45545')},
+//   {title:'bread', price:12.3, amount:640, manId: new ObjectId('655c613031a0b25e55c45546')},
+//   {title:'apple', price:12.3, amount:1023, manId: new ObjectId('655c613031a0b25e55c45547')},
+//   {title:'ananas', price:203.3, amount:52, manId: new ObjectId('655c613031a0b25e55c45547')},
+//   {title:'banana', price:52.3, amount:1300, manId: new ObjectId('655c613031a0b25e55c45547')},
+// ]);
+
+// db.products.find();
+
+// db.products.aggregate([
+//   {
+//     $lookup: {
+//       from: 'manufactures',
+//       localField: 'manId',
+//       foreignField: '_id',
+//       as: 'manufacture'
+//     }
+//   },
+//   {
+//     $unwind: '$manufacture'
+//   },
+//   {
+//     //$unset: ['manId', 'amount']
+//     $unset: ['manufacture._id',  'amount']
+//   }
+// ]);
+
+// порахувати скільки номенклaтур продуктів в кожного виробника
+//
+
+// db.products.aggregate([
+//   {
+//     $group: {
+//       _id: '$manId',
+//       countProducts: {
+//         $count: {},
+//       },
+//       averagePrice:{
+//         $avg: '$price'
+//       },
+//       totalAmount:{
+//         $sum: '$amount'
+//       }
+//     },
+//   },
+// ]);
+
+// db.products.aggregate([
+//   {
+//     $sort: {
+//       price: -1,
+//     },
+//   },
+//   {
+//     $skip: 2,
+//   },
+//   {
+//     $limit: 2,
+//   },
+// ]);
+
+// db.products.aggregate([
+//   {
+//     $sort: {
+//       manId: 1,
+//       amount: -1
+//     }
+//   }
+// ])
+
+//db.products.find().count();
+// db.products.find().sort('title').limit(2).skip(4);
+// db.products.find().limit(2).skip(4);
+
+// db.manufactures.aggregate([
+//   {
+//     $lookup: {
+//       from: 'products',
+//       localField: '_id',
+//       foreignField: 'manId',
+//       as: 'products',
+//     },
+//   },
+//   {
+//     $unset: ['products.manId'],
+//   },
+// ]);
